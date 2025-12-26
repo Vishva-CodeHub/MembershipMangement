@@ -68,9 +68,7 @@
         <!-- MEMBERS TABLE -->
         <section class="table-section">
           <div class="table-header">
-            <h2>Members</h2>
-
-
+            <h2>Expire alert</h2>
           </div>
 
           <table>
@@ -92,7 +90,7 @@
                 <td>ravi@email.com</td>
                 <td>Gold</td>
                 <td><span class="status active">Active</span></td>
-                <td>12 Oct 2025</td>
+                <td>30 Dec 2025</td>
               </tr>
 
               <tr>
@@ -101,7 +99,7 @@
                 <td>anita@email.com</td>
                 <td>Silver</td>
                 <td><span class="status expired">Expired</span></td>
-                <td>01 Aug 2025</td>
+                <td>29 Dec 2025</td>
               </tr>
 
               <tr>
@@ -109,11 +107,15 @@
                 <td>Mohit Jain</td>
                 <td>mohit@email.com</td>
                 <td>Platinum</td>
-                <td><span class="status active">Active</span></td>
-                <td>30 Dec 2025</td>
+                <td><span class="status expired">Expired</span></td>
+                <td>29 Dec 2025</td>
               </tr>
             </tbody>
           </table>
+        </section>
+        <section class="card" style="margin-bottom: 32px">
+          <h3 style="margin-bottom: 16px">Monthly Income</h3>
+          <canvas id="incomeChart" height="120"></canvas>
         </section>
       </main>
 
@@ -121,7 +123,52 @@
       <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
     </div>
     <!-- SCRIPT -->
+
+    <!-- Chart.js (LOAD FIRST) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const canvas = document.getElementById("incomeChart");
+        if (!canvas) {
+          console.error("incomeChart canvas not found");
+          return;
+        }
+
+        const ctx = canvas.getContext("2d");
+
+        new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: ["Aug", "Sep", "Oct", "Nov", "Dec"],
+            datasets: [
+              {
+                label: "Income (₹)",
+                data: [180000, 210000, 195000, 245000, 260000],
+                borderColor: "#4f46e5",
+                backgroundColor: "rgba(79,70,229,0.15)",
+                fill: true,
+                tension: 0.4,
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            plugins: {
+              legend: { display: false },
+            },
+            scales: {
+              y: {
+                ticks: {
+                  callback: (value) => "₹ " + value.toLocaleString(),
+                },
+              },
+            },
+          },
+        });
+      });
+
+      /* ---------- LOGIN ---------- */
       function handleLogin() {
         const phone = document.getElementById("loginPhone").value;
         const password = document.getElementById("loginPassword").value;
@@ -130,7 +177,6 @@
         if (phone === "9876543210" && password === "0000") {
           sessionStorage.setItem("isLoggedIn", "true");
           sessionStorage.setItem("user", phone);
-
           document.getElementById("loginPage").style.display = "none";
           document.getElementById("dashboard").style.display = "block";
         } else {
@@ -151,5 +197,7 @@
         }
       };
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </body>
 </html>

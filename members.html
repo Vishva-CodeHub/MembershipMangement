@@ -5,10 +5,37 @@
     <title>Members</title>
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    \
+    <style>
+      .select-field {
+        width: 100%;
+        padding: 12px 14px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        background-color: #fff;
+        appearance: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      /* Custom arrow */
+      .select-field {
+        background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 16px;
+      }
+
+      .select-field:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      }
+    </style>
   </head>
 
   <body>
-    <!-- HEADER -->
     <header class="header">
       <div class="logo">MemberFlow</div>
       <nav>
@@ -21,23 +48,11 @@
       </nav>
     </header>
 
-    <!-- MAIN -->
     <main class="container">
       <div class="table-section">
         <div class="table-header">
           <h2>Members</h2>
-          <div class="actions">
-            <a href="#add-member-modal" class="add-member-btn">+ Add Member</a>
-
-              <a
-                class="invite-btn"
-                href="https://wa.me/?text=Join%20MemberFlow%20using%20this%20link:%20http://127.0.0.1:5500/MembershipMangement/newmember.html"
-                target="_blank"
-                rel="noopener"
-              >
-                📲 Send Invite
-              </a>
-            </div>
+          <a href="#add-member-modal" class="add-member-btn">+ Add Member</a>
         </div>
 
         <table>
@@ -52,15 +67,11 @@
               <th>Actions</th>
             </tr>
           </thead>
-
-          <tbody id="membersTable">
-            <!-- Rendered by JS -->
-          </tbody>
+          <tbody id="membersTable"></tbody>
         </table>
       </div>
     </main>
 
-    <!-- FOOTER -->
     <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
 
     <!-- ADD MEMBER MODAL -->
@@ -75,14 +86,33 @@
           <label>Email</label>
           <input id="addEmail" required />
 
-          <label>Plan</label>
-          <input id="addPlan" required />
+          <div class="form-group">
+            <label for="addPlan">Plan</label>
+            <select id="addPlan" class="select-field" required>
+              <option value="">Select a plan</option>
+              <option>Basic</option>
+              <option>Gold</option>
+              <option>Platinum</option>
+            </select>
+          </div>
 
           <label>Valid Till</label>
           <input id="addValidTill" type="date" required />
 
           <div class="modal-actions">
-            <a href="#" class="secondary-btn">Cancel</a>
+            <a
+              href="#"
+              class="primary-btn"
+              style="
+                background-color: #e5e7eb;
+                color: black;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+              "
+              >Cancel</a
+            >
             <button class="primary-btn">Save</button>
           </div>
         </form>
@@ -100,54 +130,92 @@
 
           <label>Email</label>
           <input id="editEmail" required />
-
-          <label>Plan</label>
-          <input id="editPlan" required />
-
+          <div class="form-group">
+            <label>Plan</label>
+            <select class="select-field" id="editPlan" required>
+              <option>Basic</option>
+              <option>Gold</option>
+              <option>Platinum</option>
+            </select>
+          </div>
           <label>Valid Till</label>
           <input id="editValidTill" type="date" required />
 
           <div class="modal-actions">
-            <a href="#" class="secondary-btn">Cancel</a>
+            <a
+              href="#"
+              class="primary-btn"
+              style="
+                background-color: #e5e7eb;
+                color: black;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+              "
+              >Cancel</a
+            >
+
             <button class="primary-btn">Update</button>
           </div>
         </form>
       </div>
     </div>
 
-    <!-- SCRIPT -->
+    <!-- ACTIVATE MEMBER MODAL -->
+    <div id="activate-member-modal" class="modal">
+      <div class="modal-content">
+        <h3>Activate Member</h3>
+
+        <form class="modal-form" onsubmit="confirmActivate(event)">
+          <label>Next Expiry Date</label>
+          <input id="activateValidTill" type="date" required />
+
+          <div class="modal-actions">
+            <a
+              href="#"
+              class="primary-btn"
+              style="
+                background-color: #e5e7eb;
+                color: black;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+              "
+              >Cancel</a
+            >
+
+            <button class="primary-btn">Activate</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script>
-      let members =
-        JSON.parse(sessionStorage.getItem("members")) || [
-          {
-            id: 1,
-            name: "Ravi Kumar",
-            email: "ravi@email.com",
-            plan: "Gold",
-            status: "Active",
-            validTill: "2025-12-12"
-          },
-          {
-            id: 2,
-            name: "Anita Sharma",
-            email: "anita@email.com",
-            plan: "Basic",
-            status: "Inactive",
-            validTill: "2025-08-01"
-          },
-          {
-            id: 3,
-            name: "Mohit Jain",
-            email: "mohit@email.com",
-            plan: "Platinum",
-            status: "Active",
-            validTill: "2025-12-30"
-          }
-        ];
+      let members = JSON.parse(sessionStorage.getItem("members")) || [
+        {
+          id: 1,
+          name: "Ravi Kumar",
+          email: "ravi@email.com",
+          plan: "Gold",
+          status: "Active",
+          validTill: "2025-12-12",
+        },
+        {
+          id: 2,
+          name: "Anita Sharma",
+          email: "anita@email.com",
+          plan: "Basic",
+          status: "Expired",
+          validTill: "2025-08-01",
+        },
+      ];
 
       let editMemberId = null;
+      let activateMemberId = null;
 
-      function saveMembers() {
+      function save() {
         sessionStorage.setItem("members", JSON.stringify(members));
       }
 
@@ -155,28 +223,45 @@
         const tbody = document.getElementById("membersTable");
         tbody.innerHTML = "";
 
-        members.forEach((m, index) => {
+        members.forEach((m, i) => {
+          const expired = m.status === "Expired";
+
           tbody.innerHTML += `
-            <tr>
-              <td>${index + 1}</td>
-              <td>${m.name}</td>
-              <td>${m.email}</td>
-              <td>${m.plan}</td>
-              <td>
-                <span class="status ${m.status === "Active" ? "active" : "expired"}">
-                  ${m.status}
-                </span>
-              </td>
-              <td>${formatDate(m.validTill)}</td>
-              <td class="action-cell">
-                <a href="#" class="action-btn edit" onclick="openEdit(${m.id})">Edit</a>
-                <a href="member-detail.html?id=1" class="action-btn">View</a>
-                <a href="#" class="action-btn danger" onclick="toggleStatus(${m.id})">
-                  ${m.status === "Active" ? "Deactivate" : "Activate"}
-                </a>
-              </td>
-            </tr>
-          `;
+      <tr>
+        <td>${i + 1}</td>
+        <td>${m.name}</td>
+        <td>${m.email}</td>
+        <td>${m.plan}</td>
+        <td>
+          <span class="status ${expired ? "expired" : "active"}">
+            ${m.status}
+          </span>
+        </td>
+        <td>${formatDate(m.validTill)}</td>
+        <td class="action-cell">
+          <a href="#edit-member-modal"
+             class="action-btn edit"
+             onclick="openEdit(${m.id})">Edit</a>
+
+          ${
+            expired
+              ? `
+            <a href="#activate-member-modal"
+               class="action-btn"
+               onclick="openActivate(${m.id})">
+              Activate
+            </a>`
+              : ""
+          }
+
+          <a href="#"
+             class="action-btn danger"
+             onclick="deleteMember(${m.id})">
+             Delete
+          </a>
+        </td>
+      </tr>
+    `;
         });
       }
 
@@ -189,55 +274,75 @@
           email: addEmail.value,
           plan: addPlan.value,
           status: "Active",
-          validTill: addValidTill.value
+          validTill: addValidTill.value,
         });
 
-        saveMembers();
+        save();
         renderMembers();
         e.target.reset();
         location.hash = "";
       }
 
       function openEdit(id) {
-        const m = members.find(mem => mem.id === id);
-        editMemberId = id;
+        const m = members.find((x) => x.id === id);
+        if (!m) return;
 
+        editMemberId = id;
         editName.value = m.name;
         editEmail.value = m.email;
         editPlan.value = m.plan;
         editValidTill.value = m.validTill;
-
-        location.hash = "edit-member-modal";
       }
 
       function updateMember(e) {
         e.preventDefault();
 
-        const m = members.find(mem => mem.id === editMemberId);
+        const m = members.find((x) => x.id === editMemberId);
+        if (!m) return;
+
         m.name = editName.value;
         m.email = editEmail.value;
         m.plan = editPlan.value;
         m.validTill = editValidTill.value;
 
-        saveMembers();
+        save();
         renderMembers();
         location.hash = "";
       }
 
-      function toggleStatus(id) {
-        const m = members.find(mem => mem.id === id);
-        m.status = m.status === "Active" ? "Inactive" : "Active";
+      function openActivate(id) {
+        activateMemberId = id;
+        activateValidTill.value = "";
+      }
 
-        saveMembers();
+      function confirmActivate(e) {
+        e.preventDefault();
+
+        const m = members.find((x) => x.id === activateMemberId);
+        if (!m) return;
+
+        m.status = "Active";
+        m.validTill = activateValidTill.value;
+
+        save();
+        renderMembers();
+        activateMemberId = null;
+        location.hash = "";
+      }
+
+      function deleteMember(id) {
+        if (!confirm("Delete this member permanently?")) return;
+
+        members = members.filter((m) => m.id !== id);
+        save();
         renderMembers();
       }
 
       function formatDate(dateStr) {
-        const d = new Date(dateStr);
-        return d.toLocaleDateString("en-GB", {
+        return new Date(dateStr).toLocaleDateString("en-GB", {
           day: "2-digit",
           month: "short",
-          year: "numeric"
+          year: "numeric",
         });
       }
 

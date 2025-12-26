@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <title>WhatsApp Notifications</title>
@@ -9,6 +8,7 @@
 </head>
 
 <body>
+  <!-- HEADER -->
   <header class="header">
     <div class="logo">MemberFlow</div>
     <nav>
@@ -21,22 +21,23 @@
     </nav>
   </header>
 
+  <!-- MAIN -->
   <main class="container">
     <h2 class="page-title">📲 WhatsApp Notifications</h2>
 
-    <!-- NOTIFICATION TYPES -->
+    <!-- OVERVIEW -->
     <section class="stats">
       <div class="card">
         <h3>Renewal Reminders</h3>
-        <p>Active</p>
+        <p>Automated</p>
       </div>
       <div class="card">
-        <h3>Daily Tips</h3>
-        <p>Scheduled</p>
+        <h3>Bulk Messaging</h3>
+        <p>Manual / Targeted</p>
       </div>
       <div class="card">
-        <h3>Custom Messages</h3>
-        <p>Manual</p>
+        <h3>Delivery Mode</h3>
+        <p>WhatsApp</p>
       </div>
     </section>
 
@@ -45,11 +46,12 @@
       <h3 class="section-title">🔔 Membership Renewal Reminder</h3>
 
       <form class="notification-form">
-        <label>Reminder Message</label>
+        <label>Reminder Message Template</label>
         <textarea>
-Hello {{name}}, your {{plan}} membership expires on {{expiry_date}}.
-Renew now to continue your benefits.
-      </textarea>
+Hello {{name}}, 👋
+Your {{plan}} membership expires on {{expiry_date}}.
+Renew now to continue uninterrupted benefits.
+        </textarea>
 
         <label>Send Reminder</label>
         <select>
@@ -58,49 +60,50 @@ Renew now to continue your benefits.
           <option>On expiry date</option>
         </select>
 
-        <button class="primary-btn">Save Reminder</button>
+        <button class="primary-btn">Save Reminder Settings</button>
       </form>
     </section>
 
-    <!-- DAILY TIPS -->
-    <section class="table-section mt-4">
-      <h3 class="section-title">💡 Daily Tips / Updates</h3>
-
-      <form class="notification-form">
-        <label>Daily Tip Message</label>
-        <textarea>
-Tip of the day 💡
-Stay consistent with your membership benefits!
-      </textarea>
-
-        <label>Send Time</label>
-        <input type="time" value="09:00" />
-
-        <button class="primary-btn">Schedule Daily Tip</button>
-      </form>
-    </section>
-
-    <!-- CUSTOM MESSAGE -->
+    <!-- CUSTOM / BULK MESSAGE -->
     <section class="table-section mt-4">
       <h3 class="section-title">✍️ Send Custom WhatsApp Message</h3>
 
       <form class="notification-form">
-        <label>Select Members</label>
+        <!-- QUICK FILTER -->
+        <label>Quick Select</label>
         <select>
+          <option value="">-- Choose group --</option>
           <option>All Active Members</option>
           <option>Expired Members</option>
           <option>Gold Plan Members</option>
+          <option>Expiring in 7 Days</option>
         </select>
 
+        <!-- MULTI SELECT MEMBERS -->
+        <label>Select Members (One or More)</label>
+        <select multiple size="5">
+          <option>Ravi Kumar (Gold)</option>
+          <option>Anita Sharma (Expired)</option>
+          <option>Mohit Jain (Platinum)</option>
+          <option>Sneha Patel (Gold)</option>
+          <option>Arjun Verma (Basic)</option>
+        </select>
+        <small class="muted">
+          Hold <b>Ctrl</b> (Windows) or <b>Cmd</b> (Mac) to select multiple members
+        </small>
+
+        <!-- MESSAGE -->
         <label>Message Content</label>
         <textarea placeholder="Type your WhatsApp message here..."></textarea>
 
-        <button class="primary-btn">Send Message</button>
+        <button class="primary-btn">Send WhatsApp Message</button>
       </form>
     </section>
   </main>
 
-  <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2025 MemberFlow. All rights reserved.
+  </footer>
 </body>
-
 </html>

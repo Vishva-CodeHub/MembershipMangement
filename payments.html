@@ -79,7 +79,20 @@
           <input id="addDate" type="date" required />
 
           <div class="modal-actions">
-            <a href="#" class="secondary-btn">Cancel</a>
+            <a
+              href="#"
+              class="primary-btn"
+              style="
+                background-color: #e5e7eb;
+                color: black;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+              "
+              >Cancel</a
+            >
+
             <button class="primary-btn">Save</button>
           </div>
         </form>
@@ -111,7 +124,20 @@
           <input id="editDate" type="date" required />
 
           <div class="modal-actions">
-            <a href="#" class="secondary-btn">Cancel</a>
+            <a
+              href="#"
+              class="primary-btn"
+              style="
+                background-color: #e5e7eb;
+                color: black;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                text-decoration: none;
+              "
+              >Cancel</a
+            >
+
             <button class="primary-btn">Update</button>
           </div>
         </form>
@@ -120,33 +146,32 @@
 
     <!-- SCRIPT -->
     <script>
-      let payments =
-        JSON.parse(sessionStorage.getItem("payments")) || [
-          {
-            id: 1,
-            member: "Ravi Kumar",
-            plan: "Gold",
-            amount: "₹2,499",
-            status: "Paid",
-            date: "2025-09-12"
-          },
-          {
-            id: 2,
-            member: "Anita Sharma",
-            plan: "Basic",
-            amount: "₹999",
-            status: "Failed",
-            date: "2025-09-10"
-          },
-          {
-            id: 3,
-            member: "Mohit Jain",
-            plan: "Platinum",
-            amount: "₹8,999",
-            status: "Paid",
-            date: "2025-09-01"
-          }
-        ];
+      let payments = JSON.parse(sessionStorage.getItem("payments")) || [
+        {
+          id: 1,
+          member: "Ravi Kumar",
+          plan: "Gold",
+          amount: "₹2,499",
+          status: "Paid",
+          date: "2025-09-12",
+        },
+        {
+          id: 2,
+          member: "Anita Sharma",
+          plan: "Basic",
+          amount: "₹999",
+          status: "Failed",
+          date: "2025-09-10",
+        },
+        {
+          id: 3,
+          member: "Mohit Jain",
+          plan: "Platinum",
+          amount: "₹8,999",
+          status: "Paid",
+          date: "2025-09-01",
+        },
+      ];
 
       let editPaymentId = null;
 
@@ -193,7 +218,7 @@
           plan: addPlan.value,
           amount: addAmount.value,
           status: addStatus.value,
-          date: addDate.value
+          date: addDate.value,
         });
 
         savePayments();
@@ -203,7 +228,7 @@
       }
 
       function openEdit(id) {
-        const p = payments.find(pay => pay.id === id);
+        const p = payments.find((pay) => pay.id === id);
         editPaymentId = id;
 
         editMember.value = p.member;
@@ -216,7 +241,7 @@
       function updatePayment(e) {
         e.preventDefault();
 
-        const p = payments.find(pay => pay.id === editPaymentId);
+        const p = payments.find((pay) => pay.id === editPaymentId);
         p.member = editMember.value;
         p.plan = editPlan.value;
         p.amount = editAmount.value;
@@ -233,7 +258,7 @@
         return d.toLocaleDateString("en-GB", {
           day: "2-digit",
           month: "short",
-          year: "numeric"
+          year: "numeric",
         });
       }
 
