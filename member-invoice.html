@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Member Invoice</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <!-- HEADER (HIDDEN ON PRINT) -->
+    <header class="header no-print">
+      <div class="logo">MemberFlow</div>
+      <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="members.html">Members</a>
+        <a href="plans.html">Plans</a>
+        <a href="payments.html">Payments</a>
+        <a href="#">Logout</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container invoice-page">
+      <div class="invoice-card">
+        <!-- INVOICE HEADER -->
+        <div class="invoice-header">
+          <div>
+            <h2>Invoice</h2>
+            <p class="muted">Invoice ID: INV-2025-004</p>
+          </div>
+          <div class="text-right">
+            <p><strong>Date:</strong> 12 Sep 2025</p>
+            <p>
+              <strong>Status:</strong>
+              <span class="status active">Paid</span>
+            </p>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- MEMBER & PLAN -->
+        <div class="invoice-info">
+          <div>
+            <h4>Billed To</h4>
+            <p><strong>Ravi Kumar</strong></p>
+            <p>ravi@email.com</p>
+            <p>+91 98765 43210</p>
+          </div>
+
+          <div>
+            <h4>Membership</h4>
+            <p><strong>Plan:</strong> Gold</p>
+            <p><strong>Duration:</strong> 3 Months</p>
+            <p><strong>Valid Till:</strong> 12 Dec 2025</p>
+          </div>
+        </div>
+
+        <!-- ITEMS -->
+        <div class="table-section mt-4">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th class="text-right">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Gold Membership Plan (3 Months)</td>
+                <td>1</td>
+                <td>₹2,499</td>
+                <td class="text-right">₹2,499</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TOTAL -->
+        <div class="invoice-total">
+          <table>
+            <tr>
+              <td>Subtotal</td>
+              <td class="text-right">₹2,499</td>
+            </tr>
+            <tr>
+              <td>Tax</td>
+              <td class="text-right">₹0</td>
+            </tr>
+            <tr class="grand-total">
+              <td>Total</td>
+              <td class="text-right">₹2,499</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="invoice-actions no-print">
+          <button onclick="window.print()">🖨 Print</button>
+
+          <!-- WHATSAPP SHARE -->
+          <a
+            class="whatsapp-btn"
+            href="https://wa.me/?text=Hello%20Ravi,%20here%20is%20your%20membership%20invoice:%20http://127.0.0.1:5500/MembershipMangement/member-invoice.html"
+            target="_blank"
+            rel="noopener"
+          >
+            📲 Share on WhatsApp
+          </a>
+
+          <a href="payments.html" class="secondary-btn"> Back </a>
+        </div>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer no-print">
+      © 2025 MemberFlow. All rights reserved.
+    </footer>
+  </body>
+</html>

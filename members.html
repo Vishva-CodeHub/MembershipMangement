@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Members</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">MemberFlow</div>
+      <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="members.html">Members</a>
+        <a href="plans.html">Plans</a>
+        <a href="payments.html">Payments</a>
+        <a href="whatsapp-notifications.html">Whatsapp</a>
+        <a href="#">Logout</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container">
+      <div class="table-section">
+        <div class="table-header">
+          <h2>Members</h2>
+          <div class="actions">
+            <a href="#add-member-modal" class="add-member-btn">+ Add Member</a>
+
+              <a
+                class="invite-btn"
+                href="https://wa.me/?text=Join%20MemberFlow%20using%20this%20link:%20http://127.0.0.1:5500/MembershipMangement/newmember.html"
+                target="_blank"
+                rel="noopener"
+              >
+                📲 Send Invite
+              </a>
+            </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Member</th>
+              <th>Email</th>
+              <th>Plan</th>
+              <th>Status</th>
+              <th>Valid Till</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody id="membersTable">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
+
+    <!-- ADD MEMBER MODAL -->
+    <div id="add-member-modal" class="modal">
+      <div class="modal-content">
+        <h3>Add Member</h3>
+
+        <form class="modal-form" onsubmit="addMember(event)">
+          <label>Name</label>
+          <input id="addName" required />
+
+          <label>Email</label>
+          <input id="addEmail" required />
+
+          <label>Plan</label>
+          <input id="addPlan" required />
+
+          <label>Valid Till</label>
+          <input id="addValidTill" type="date" required />
+
+          <div class="modal-actions">
+            <a href="#" class="secondary-btn">Cancel</a>
+            <button class="primary-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- EDIT MEMBER MODAL -->
+    <div id="edit-member-modal" class="modal">
+      <div class="modal-content">
+        <h3>Edit Member</h3>
+
+        <form class="modal-form" onsubmit="updateMember(event)">
+          <label>Name</label>
+          <input id="editName" required />
+
+          <label>Email</label>
+          <input id="editEmail" required />
+
+          <label>Plan</label>
+          <input id="editPlan" required />
+
+          <label>Valid Till</label>
+          <input id="editValidTill" type="date" required />
+
+          <div class="modal-actions">
+            <a href="#" class="secondary-btn">Cancel</a>
+            <button class="primary-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+      let members =
+        JSON.parse(sessionStorage.getItem("members")) || [
+          {
+            id: 1,
+            name: "Ravi Kumar",
+            email: "ravi@email.com",
+            plan: "Gold",
+            status: "Active",
+            validTill: "2025-12-12"
+          },
+          {
+            id: 2,
+            name: "Anita Sharma",
+            email: "anita@email.com",
+            plan: "Basic",
+            status: "Inactive",
+            validTill: "2025-08-01"
+          },
+          {
+            id: 3,
+            name: "Mohit Jain",
+            email: "mohit@email.com",
+            plan: "Platinum",
+            status: "Active",
+            validTill: "2025-12-30"
+          }
+        ];
+
+      let editMemberId = null;
+
+      function saveMembers() {
+        sessionStorage.setItem("members", JSON.stringify(members));
+      }
+
+      function renderMembers() {
+        const tbody = document.getElementById("membersTable");
+        tbody.innerHTML = "";
+
+        members.forEach((m, index) => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${m.name}</td>
+              <td>${m.email}</td>
+              <td>${m.plan}</td>
+              <td>
+                <span class="status ${m.status === "Active" ? "active" : "expired"}">
+                  ${m.status}
+                </span>
+              </td>
+              <td>${formatDate(m.validTill)}</td>
+              <td class="action-cell">
+                <a href="#" class="action-btn edit" onclick="openEdit(${m.id})">Edit</a>
+                <a href="member-detail.html?id=1" class="action-btn">View</a>
+                <a href="#" class="action-btn danger" onclick="toggleStatus(${m.id})">
+                  ${m.status === "Active" ? "Deactivate" : "Activate"}
+                </a>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      function addMember(e) {
+        e.preventDefault();
+
+        members.push({
+          id: Date.now(),
+          name: addName.value,
+          email: addEmail.value,
+          plan: addPlan.value,
+          status: "Active",
+          validTill: addValidTill.value
+        });
+
+        saveMembers();
+        renderMembers();
+        e.target.reset();
+        location.hash = "";
+      }
+
+      function openEdit(id) {
+        const m = members.find(mem => mem.id === id);
+        editMemberId = id;
+
+        editName.value = m.name;
+        editEmail.value = m.email;
+        editPlan.value = m.plan;
+        editValidTill.value = m.validTill;
+
+        location.hash = "edit-member-modal";
+      }
+
+      function updateMember(e) {
+        e.preventDefault();
+
+        const m = members.find(mem => mem.id === editMemberId);
+        m.name = editName.value;
+        m.email = editEmail.value;
+        m.plan = editPlan.value;
+        m.validTill = editValidTill.value;
+
+        saveMembers();
+        renderMembers();
+        location.hash = "";
+      }
+
+      function toggleStatus(id) {
+        const m = members.find(mem => mem.id === id);
+        m.status = m.status === "Active" ? "Inactive" : "Active";
+
+        saveMembers();
+        renderMembers();
+      }
+
+      function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        });
+      }
+
+      window.onload = renderMembers;
+    </script>
+  </body>
+</html>

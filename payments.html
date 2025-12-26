@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Payments</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">MemberFlow</div>
+      <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="members.html">Members</a>
+        <a href="plans.html">Plans</a>
+        <a href="payments.html">Payments</a>
+        <a href="whatsapp-notifications.html">Whatsapp</a>
+        <a href="#">Logout</a>
+      </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="container">
+      <h2 class="page-title">Payments</h2>
+
+      <section class="table-section">
+        <div class="table-header">
+          <h2>Payment History</h2>
+          <a href="#add-payment-modal" class="add-member-btn">+ Add Payment</a>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Member</th>
+              <th>Plan</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody id="paymentsTable">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
+
+    <!-- ADD PAYMENT MODAL -->
+    <div id="add-payment-modal" class="modal">
+      <div class="modal-content">
+        <h3>Add Payment</h3>
+
+        <form class="modal-form" onsubmit="addPayment(event)">
+          <label>Member Name</label>
+          <input id="addMember" required />
+
+          <label>Plan</label>
+          <input id="addPlan" required />
+
+          <label>Amount</label>
+          <input id="addAmount" required />
+
+          <label>Status</label>
+          <select id="addStatus">
+            <option value="Paid">Paid</option>
+            <option value="Failed">Failed</option>
+          </select>
+
+          <label>Date</label>
+          <input id="addDate" type="date" required />
+
+          <div class="modal-actions">
+            <a href="#" class="secondary-btn">Cancel</a>
+            <button class="primary-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- EDIT PAYMENT MODAL -->
+    <div id="edit-payment-modal" class="modal">
+      <div class="modal-content">
+        <h3>Edit Payment</h3>
+
+        <form class="modal-form" onsubmit="updatePayment(event)">
+          <label>Member Name</label>
+          <input id="editMember" required />
+
+          <label>Plan</label>
+          <input id="editPlan" required />
+
+          <label>Amount</label>
+          <input id="editAmount" required />
+
+          <label>Status</label>
+          <select id="editStatus">
+            <option value="Paid">Paid</option>
+            <option value="Failed">Failed</option>
+          </select>
+
+          <label>Date</label>
+          <input id="editDate" type="date" required />
+
+          <div class="modal-actions">
+            <a href="#" class="secondary-btn">Cancel</a>
+            <button class="primary-btn">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+      let payments =
+        JSON.parse(sessionStorage.getItem("payments")) || [
+          {
+            id: 1,
+            member: "Ravi Kumar",
+            plan: "Gold",
+            amount: "₹2,499",
+            status: "Paid",
+            date: "2025-09-12"
+          },
+          {
+            id: 2,
+            member: "Anita Sharma",
+            plan: "Basic",
+            amount: "₹999",
+            status: "Failed",
+            date: "2025-09-10"
+          },
+          {
+            id: 3,
+            member: "Mohit Jain",
+            plan: "Platinum",
+            amount: "₹8,999",
+            status: "Paid",
+            date: "2025-09-01"
+          }
+        ];
+
+      let editPaymentId = null;
+
+      function savePayments() {
+        sessionStorage.setItem("payments", JSON.stringify(payments));
+      }
+
+      function renderPayments() {
+        const tbody = document.getElementById("paymentsTable");
+        tbody.innerHTML = "";
+
+        payments.forEach((p, index) => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${index + 1}</td>
+              <td>${p.member}</td>
+              <td>${p.plan}</td>
+              <td>${p.amount}</td>
+              <td>
+                <span class="status ${
+                  p.status === "Paid" ? "active" : "expired"
+                }">
+                  ${p.status}
+                </span>
+              </td>
+              <td>${formatDate(p.date)}</td>
+              <td class="action-cell">
+                <a href="member-invoice.html" class="action-btn">Invoice</a>
+                <a href="#edit-payment-modal"
+                   class="action-btn edit"
+                   onclick="openEdit(${p.id})">Edit</a>
+              </td>
+            </tr>
+          `;
+        });
+      }
+
+      function addPayment(e) {
+        e.preventDefault();
+
+        payments.push({
+          id: Date.now(),
+          member: addMember.value,
+          plan: addPlan.value,
+          amount: addAmount.value,
+          status: addStatus.value,
+          date: addDate.value
+        });
+
+        savePayments();
+        renderPayments();
+        e.target.reset();
+        location.hash = "";
+      }
+
+      function openEdit(id) {
+        const p = payments.find(pay => pay.id === id);
+        editPaymentId = id;
+
+        editMember.value = p.member;
+        editPlan.value = p.plan;
+        editAmount.value = p.amount;
+        editStatus.value = p.status;
+        editDate.value = p.date;
+      }
+
+      function updatePayment(e) {
+        e.preventDefault();
+
+        const p = payments.find(pay => pay.id === editPaymentId);
+        p.member = editMember.value;
+        p.plan = editPlan.value;
+        p.amount = editAmount.value;
+        p.status = editStatus.value;
+        p.date = editDate.value;
+
+        savePayments();
+        renderPayments();
+        location.hash = "";
+      }
+
+      function formatDate(dateStr) {
+        const d = new Date(dateStr);
+        return d.toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric"
+        });
+      }
+
+      window.onload = renderPayments;
+    </script>
+  </body>
+</html>

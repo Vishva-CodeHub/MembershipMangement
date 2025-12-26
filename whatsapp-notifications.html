@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>WhatsApp Notifications</title>
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo">MemberFlow</div>
+    <nav>
+      <a href="index.html">Dashboard</a>
+      <a href="members.html">Members</a>
+      <a href="plans.html">Plans</a>
+      <a href="payments.html">Payments</a>
+      <a href="whatsapp-notifications.html">WhatsApp</a>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2 class="page-title">📲 WhatsApp Notifications</h2>
+
+    <!-- NOTIFICATION TYPES -->
+    <section class="stats">
+      <div class="card">
+        <h3>Renewal Reminders</h3>
+        <p>Active</p>
+      </div>
+      <div class="card">
+        <h3>Daily Tips</h3>
+        <p>Scheduled</p>
+      </div>
+      <div class="card">
+        <h3>Custom Messages</h3>
+        <p>Manual</p>
+      </div>
+    </section>
+
+    <!-- RENEWAL REMINDER -->
+    <section class="table-section">
+      <h3 class="section-title">🔔 Membership Renewal Reminder</h3>
+
+      <form class="notification-form">
+        <label>Reminder Message</label>
+        <textarea>
+Hello {{name}}, your {{plan}} membership expires on {{expiry_date}}.
+Renew now to continue your benefits.
+      </textarea>
+
+        <label>Send Reminder</label>
+        <select>
+          <option>7 days before expiry</option>
+          <option>3 days before expiry</option>
+          <option>On expiry date</option>
+        </select>
+
+        <button class="primary-btn">Save Reminder</button>
+      </form>
+    </section>
+
+    <!-- DAILY TIPS -->
+    <section class="table-section mt-4">
+      <h3 class="section-title">💡 Daily Tips / Updates</h3>
+
+      <form class="notification-form">
+        <label>Daily Tip Message</label>
+        <textarea>
+Tip of the day 💡
+Stay consistent with your membership benefits!
+      </textarea>
+
+        <label>Send Time</label>
+        <input type="time" value="09:00" />
+
+        <button class="primary-btn">Schedule Daily Tip</button>
+      </form>
+    </section>
+
+    <!-- CUSTOM MESSAGE -->
+    <section class="table-section mt-4">
+      <h3 class="section-title">✍️ Send Custom WhatsApp Message</h3>
+
+      <form class="notification-form">
+        <label>Select Members</label>
+        <select>
+          <option>All Active Members</option>
+          <option>Expired Members</option>
+          <option>Gold Plan Members</option>
+        </select>
+
+        <label>Message Content</label>
+        <textarea placeholder="Type your WhatsApp message here..."></textarea>
+
+        <button class="primary-btn">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Membership Management</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <!-- ================= LOGIN PAGE ================= -->
+    <div id="loginPage" class="login-overlay">
+      <div class="login-card">
+        <h2>MemberFlow Login</h2>
+        <p class="login-sub">Use demo credentials to continue</p>
+
+        <div class="login-form">
+          <label>Mobile Number</label>
+          <input id="loginPhone" type="text" placeholder="9876543210" />
+
+          <label>Password</label>
+          <input id="loginPassword" type="password" placeholder="0000" />
+
+          <p id="loginError" class="login-error"></p>
+
+          <button onclick="handleLogin()">Login</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= DASHBOARD ================= -->
+    <div id="dashboard" style="display: none">
+      <!-- HEADER -->
+      <header class="header">
+        <div class="logo">MemberFlow</div>
+        <nav>
+          <a href="#">Dashboard</a>
+          <a href="members.html">Members</a>
+          <a href="plans.html">Plans</a>
+          <a href="payments.html">Payments</a>
+          <a href="whatsapp-notifications.html">Whatsapp</a>
+          <a href="#" onclick="logout()">Logout</a>
+        </nav>
+      </header>
+
+      <!-- MAIN -->
+      <main class="container">
+        <!-- DASHBOARD STATS -->
+        <section class="stats">
+          <div class="card">
+            <h3>Total Members</h3>
+            <p>1,248</p>
+          </div>
+          <div class="card">
+            <h3>Active Members</h3>
+            <p>980</p>
+          </div>
+          <div class="card">
+            <h3>Expired</h3>
+            <p>268</p>
+          </div>
+          <div class="card">
+            <h3>Monthly Revenue</h3>
+            <p>₹ 2,45,000</p>
+          </div>
+        </section>
+
+        <!-- MEMBERS TABLE -->
+        <section class="table-section">
+          <div class="table-header">
+            <h2>Members</h2>
+
+
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Plan</th>
+                <th>Status</th>
+                <th>Expiry</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Ravi Kumar</td>
+                <td>ravi@email.com</td>
+                <td>Gold</td>
+                <td><span class="status active">Active</span></td>
+                <td>12 Oct 2025</td>
+              </tr>
+
+              <tr>
+                <td>2</td>
+                <td>Anita Sharma</td>
+                <td>anita@email.com</td>
+                <td>Silver</td>
+                <td><span class="status expired">Expired</span></td>
+                <td>01 Aug 2025</td>
+              </tr>
+
+              <tr>
+                <td>3</td>
+                <td>Mohit Jain</td>
+                <td>mohit@email.com</td>
+                <td>Platinum</td>
+                <td><span class="status active">Active</span></td>
+                <td>30 Dec 2025</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
+    </div>
+    <!-- SCRIPT -->
+    <script>
+      function handleLogin() {
+        const phone = document.getElementById("loginPhone").value;
+        const password = document.getElementById("loginPassword").value;
+        const error = document.getElementById("loginError");
+
+        if (phone === "9876543210" && password === "0000") {
+          sessionStorage.setItem("isLoggedIn", "true");
+          sessionStorage.setItem("user", phone);
+
+          document.getElementById("loginPage").style.display = "none";
+          document.getElementById("dashboard").style.display = "block";
+        } else {
+          error.textContent = "Invalid mobile number or password";
+        }
+      }
+
+      function logout() {
+        sessionStorage.clear();
+        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("loginPage").style.display = "flex";
+      }
+
+      window.onload = () => {
+        if (sessionStorage.getItem("isLoggedIn") === "true") {
+          document.getElementById("loginPage").style.display = "none";
+          document.getElementById("dashboard").style.display = "block";
+        }
+      };
+    </script>
+  </body>
+</html>
