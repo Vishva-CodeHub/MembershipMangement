@@ -5,6 +5,54 @@
     <title>WhatsApp Notifications</title>
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      .page-title {
+        margin-bottom: 20px;
+      }
+
+      .section-title {
+        margin-bottom: 12px;
+      }
+
+      .notification-form {
+        display: grid;
+        gap: 14px;
+        max-width: 700px;
+      }
+
+      .notification-form textarea {
+        min-height: 120px;
+        resize: vertical;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 14px;
+      }
+
+      .notification-form select {
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font-size: 14px;
+        background-color: #fff;
+      }
+
+      .notification-form small {
+        font-size: 12px;
+        color: #6b7280;
+      }
+
+      .divider {
+        height: 1px;
+        background: #e5e7eb;
+        margin: 30px 0;
+      }
+
+      .stats {
+        margin-bottom: 30px;
+      }
+    </style>
   </head>
 
   <body>
@@ -36,71 +84,86 @@
           <p>Manual / Targeted</p>
         </div>
         <div class="card">
-          <h3>Delivery Mode</h3>
-          <p>WhatsApp</p>
+          <h3>Channel</h3>
+          <p>WhatsApp API</p>
         </div>
       </section>
 
-      <!-- RENEWAL REMINDER -->
-      <section class="table-section">
-        <h3 class="section-title">🔔 Membership Renewal Reminder</h3>
+      <div style="display: flex">
+        <!-- AUTOMATED RENEWAL -->
+        <section class="table-section-notify">
+          <h3 class="section-title">
+            🔔 Automated Membership Renewal Reminder
+          </h3>
 
-        <form class="notification-form">
-          <label>Reminder Message Template</label>
-          <textarea>
-Hello {{name}}, 👋
+          <form class="notification-form">
+            <label>Message Template</label>
+            <textarea>
+Hello {{name}} 👋
+
 Your {{plan}} membership expires on {{expiry_date}}.
-Renew now to continue uninterrupted benefits.
-        </textarea
-          >
+Please renew to continue uninterrupted access.
 
-          <label>Send Reminder</label>
-          <select>
-            <option>7 days before expiry</option>
-            <option>3 days before expiry</option>
-            <option>On expiry date</option>
-          </select>
+– Team Membership
+          </textarea
+            >
+            <small>
+              Supported variables: <br />
+              <b>{{name}}</b> will be replaced by the Customer's Name,<br />
+              <b>{{plan}}</b> will be replaced by the Customer's Current Plan,
+              <br />
+              <b>{{expiry_date}}</b> will be replaced by the Customer's Plan
+              Expiry Date.
+            </small>
 
-          <button class="primary-btn">Save Reminder Settings</button>
-        </form>
-      </section>
+            <label>When should the reminder be sent?</label>
+            <select>
+              <option value="7">7 days before expiry</option>
+              <option value="3">3 days before expiry</option>
+              <option value="1">On expiry date</option>
+            </select>
 
-      <!-- CUSTOM / BULK MESSAGE -->
-      <section class="table-section mt-4">
-        <h3 class="section-title">✍️ Send Custom WhatsApp Message</h3>
+            <button class="primary-btn">Save Reminder Settings</button>
+          </form>
+        </section>
 
-        <form class="notification-form">
-          <!-- QUICK FILTER -->
-          <label>Quick Select</label>
-          <select>
-            <option value="">-- Choose group --</option>
-            <option>All Active Members</option>
-            <option>Expired Members</option>
-            <option>Gold Plan Members</option>
-            <option>Expiring in 7 Days</option>
-          </select>
+        <div class="divider"></div>
 
-          <!-- MULTI SELECT MEMBERS -->
-          <label>Select Members (One or More)</label>
-          <select multiple size="5">
-            <option>Ravi Kumar (Gold)</option>
-            <option>Anita Sharma (Expired)</option>
-            <option>Mohit Jain (Platinum)</option>
-            <option>Sneha Patel (Gold)</option>
-            <option>Arjun Verma (Basic)</option>
-          </select>
-          <small class="muted">
-            Hold <b>Ctrl</b> (Windows) or <b>Cmd</b> (Mac) to select multiple
-            members
-          </small>
+        <!-- MANUAL / BULK -->
+        <section class="table-section-notify">
+          <h3 class="section-title">✍️ Send Manual / Bulk WhatsApp Message</h3>
 
-          <!-- MESSAGE -->
-          <label>Message Content</label>
-          <textarea placeholder="Type your WhatsApp message here..."></textarea>
+          <form class="notification-form">
+            <label>Quick Audience Filter</label>
+            <select>
+              <option value="">-- Choose a group --</option>
+              <option>All Active Members</option>
+              <option>Expired Members</option>
+              <option>Gold Plan Members</option>
+              <option>Expiring in Next 7 Days</option>
+            </select>
 
-          <button class="primary-btn">Send WhatsApp Message</button>
-        </form>
-      </section>
+            <label>Select Members (optional)</label>
+            <select multiple size="5">
+              <option>Ravi Kumar (Gold)</option>
+              <option>Anita Sharma (Expired)</option>
+              <option>Mohit Jain (Platinum)</option>
+              <option>Sneha Patel (Gold)</option>
+              <option>Arjun Verma (Basic)</option>
+            </select>
+            <small>
+              If members are selected here, this overrides the group filter.
+            </small>
+
+            <label>Message Content</label>
+            <textarea
+              placeholder="Type the WhatsApp message you want to send..."
+            ></textarea>
+
+            <button class="primary-btn">Send WhatsApp Message</button>
+          </form>
+        </section>
+      </div>
     </main>
 
     <!-- FOOTER -->
