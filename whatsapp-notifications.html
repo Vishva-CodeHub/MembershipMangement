@@ -1,109 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>WhatsApp Notifications</title>
-  <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>WhatsApp Notifications</title>
+    <link rel="stylesheet" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
 
-<body>
-  <!-- HEADER -->
-  <header class="header">
-    <div class="logo">MemberFlow</div>
-    <nav>
-      <a href="index.html">Dashboard</a>
-      <a href="members.html">Members</a>
-      <a href="plans.html">Plans</a>
-      <a href="payments.html">Payments</a>
-      <a href="whatsapp-notifications.html">WhatsApp</a>
-      <a href="#">Logout</a>
-    </nav>
-  </header>
+  <body>
+    <!-- HEADER -->
+    <header class="header">
+      <div class="logo">Membership Management</div>
+      <nav>
+        <a href="index.html">Dashboard</a>
+        <a href="members.html">Members</a>
+        <a href="plans.html">Plans</a>
+        <a href="payments.html">Payments</a>
+        <a href="whatsapp-notifications.html">WhatsApp</a>
+        <a href="#">Logout</a>
+      </nav>
+    </header>
 
-  <!-- MAIN -->
-  <main class="container">
-    <h2 class="page-title">📲 WhatsApp Notifications</h2>
+    <!-- MAIN -->
+    <main class="container">
+      <h2 class="page-title">📲 WhatsApp Notifications</h2>
 
-    <!-- OVERVIEW -->
-    <section class="stats">
-      <div class="card">
-        <h3>Renewal Reminders</h3>
-        <p>Automated</p>
-      </div>
-      <div class="card">
-        <h3>Bulk Messaging</h3>
-        <p>Manual / Targeted</p>
-      </div>
-      <div class="card">
-        <h3>Delivery Mode</h3>
-        <p>WhatsApp</p>
-      </div>
-    </section>
+      <!-- OVERVIEW -->
+      <section class="stats">
+        <div class="card">
+          <h3>Renewal Reminders</h3>
+          <p>Automated</p>
+        </div>
+        <div class="card">
+          <h3>Bulk Messaging</h3>
+          <p>Manual / Targeted</p>
+        </div>
+        <div class="card">
+          <h3>Delivery Mode</h3>
+          <p>WhatsApp</p>
+        </div>
+      </section>
 
-    <!-- RENEWAL REMINDER -->
-    <section class="table-section">
-      <h3 class="section-title">🔔 Membership Renewal Reminder</h3>
+      <!-- RENEWAL REMINDER -->
+      <section class="table-section">
+        <h3 class="section-title">🔔 Membership Renewal Reminder</h3>
 
-      <form class="notification-form">
-        <label>Reminder Message Template</label>
-        <textarea>
+        <form class="notification-form">
+          <label>Reminder Message Template</label>
+          <textarea>
 Hello {{name}}, 👋
 Your {{plan}} membership expires on {{expiry_date}}.
 Renew now to continue uninterrupted benefits.
-        </textarea>
+        </textarea
+          >
 
-        <label>Send Reminder</label>
-        <select>
-          <option>7 days before expiry</option>
-          <option>3 days before expiry</option>
-          <option>On expiry date</option>
-        </select>
+          <label>Send Reminder</label>
+          <select>
+            <option>7 days before expiry</option>
+            <option>3 days before expiry</option>
+            <option>On expiry date</option>
+          </select>
 
-        <button class="primary-btn">Save Reminder Settings</button>
-      </form>
-    </section>
+          <button class="primary-btn">Save Reminder Settings</button>
+        </form>
+      </section>
 
-    <!-- CUSTOM / BULK MESSAGE -->
-    <section class="table-section mt-4">
-      <h3 class="section-title">✍️ Send Custom WhatsApp Message</h3>
+      <!-- CUSTOM / BULK MESSAGE -->
+      <section class="table-section mt-4">
+        <h3 class="section-title">✍️ Send Custom WhatsApp Message</h3>
 
-      <form class="notification-form">
-        <!-- QUICK FILTER -->
-        <label>Quick Select</label>
-        <select>
-          <option value="">-- Choose group --</option>
-          <option>All Active Members</option>
-          <option>Expired Members</option>
-          <option>Gold Plan Members</option>
-          <option>Expiring in 7 Days</option>
-        </select>
+        <form class="notification-form">
+          <!-- QUICK FILTER -->
+          <label>Quick Select</label>
+          <select>
+            <option value="">-- Choose group --</option>
+            <option>All Active Members</option>
+            <option>Expired Members</option>
+            <option>Gold Plan Members</option>
+            <option>Expiring in 7 Days</option>
+          </select>
 
-        <!-- MULTI SELECT MEMBERS -->
-        <label>Select Members (One or More)</label>
-        <select multiple size="5">
-          <option>Ravi Kumar (Gold)</option>
-          <option>Anita Sharma (Expired)</option>
-          <option>Mohit Jain (Platinum)</option>
-          <option>Sneha Patel (Gold)</option>
-          <option>Arjun Verma (Basic)</option>
-        </select>
-        <small class="muted">
-          Hold <b>Ctrl</b> (Windows) or <b>Cmd</b> (Mac) to select multiple members
-        </small>
+          <!-- MULTI SELECT MEMBERS -->
+          <label>Select Members (One or More)</label>
+          <select multiple size="5">
+            <option>Ravi Kumar (Gold)</option>
+            <option>Anita Sharma (Expired)</option>
+            <option>Mohit Jain (Platinum)</option>
+            <option>Sneha Patel (Gold)</option>
+            <option>Arjun Verma (Basic)</option>
+          </select>
+          <small class="muted">
+            Hold <b>Ctrl</b> (Windows) or <b>Cmd</b> (Mac) to select multiple
+            members
+          </small>
 
-        <!-- MESSAGE -->
-        <label>Message Content</label>
-        <textarea placeholder="Type your WhatsApp message here..."></textarea>
+          <!-- MESSAGE -->
+          <label>Message Content</label>
+          <textarea placeholder="Type your WhatsApp message here..."></textarea>
 
-        <button class="primary-btn">Send WhatsApp Message</button>
-      </form>
-    </section>
-  </main>
+          <button class="primary-btn">Send WhatsApp Message</button>
+        </form>
+      </section>
+    </main>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    © 2025 MemberFlow. All rights reserved.
-  </footer>
-</body>
+    <!-- FOOTER -->
+    <footer class="footer">
+      © 2025 Membership Management. All rights reserved.
+    </footer>
+  </body>
 </html>

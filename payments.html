@@ -5,12 +5,59 @@
     <title>Payments</title>
     <link rel="stylesheet" href="style.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .status-select {
+        width: 100%;
+        padding: 12px 42px 12px 14px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        background-color: #fff;
+        color: #111827;
+        cursor: pointer;
+        appearance: none;
+        transition: all 0.2s ease;
+
+        background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        background-size: 16px;
+      }
+
+      /* focus */
+      .status-select:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+      }
+
+      /* placeholder look */
+      .status-select:has(option[value=""]:checked) {
+        color: #9ca3af;
+      }
+
+      /* Paid */
+      .status-select[value="Paid"],
+      .status-select.paid {
+        border-color: #16a34a;
+        background-color: #f0fdf4;
+        color: #166534;
+      }
+
+      /* Failed */
+      .status-select[value="Failed"],
+      .status-select.failed {
+        border-color: #dc2626;
+        background-color: #fef2f2;
+        color: #7f1d1d;
+      }
+    </style>
   </head>
 
   <body>
     <!-- HEADER -->
     <header class="header">
-      <div class="logo">MemberFlow</div>
+      <div class="logo">Membership Management</div>
       <nav>
         <a href="index.html">Dashboard</a>
         <a href="members.html">Members</a>
@@ -52,7 +99,9 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="footer">© 2025 MemberFlow. All rights reserved.</footer>
+    <footer class="footer">
+      © 2025 Membership Management. All rights reserved.
+    </footer>
 
     <!-- ADD PAYMENT MODAL -->
     <div id="add-payment-modal" class="modal">
@@ -70,7 +119,8 @@
           <input id="addAmount" required />
 
           <label>Status</label>
-          <select id="addStatus">
+          <select id="addStatus" class="status-select" required>
+            <option value="">Select status</option>
             <option value="Paid">Paid</option>
             <option value="Failed">Failed</option>
           </select>
@@ -115,7 +165,8 @@
           <input id="editAmount" required />
 
           <label>Status</label>
-          <select id="editStatus">
+          <select id="editStatus" class="status-select" required>
+            <option value="">Select status</option>
             <option value="Paid">Paid</option>
             <option value="Failed">Failed</option>
           </select>
